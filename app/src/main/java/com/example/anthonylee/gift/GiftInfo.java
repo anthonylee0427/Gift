@@ -5,43 +5,41 @@ package com.example.anthonylee.gift;
  */
 
 public class GiftInfo {
-    private String Guid;
-    private String Gtype;
-    private String Ruid;
-
-    public GiftInfo(String guid, String gtype, String ruid) {
-        Guid = guid;
-        Gtype = gtype;
-        Ruid = ruid;
-    }
+    public String ruid;
+    public String gtype;
+    public String guid;
 
     public GiftInfo(){
 
     }
 
-    public String getGuid() {
-        return Guid;
-    }
-
-    public void setGuid(String guid) {
-        Guid = guid;
-    }
-
-    public String getGtype() {
-        return Gtype;
-    }
-
-    public void setGtype(String gtype) {
-        Gtype = gtype;
+    public GiftInfo(String ruid, String gtype, String guid) {
+        this.ruid = ruid;
+        this.gtype = gtype;
+        this.guid = guid;
     }
 
     public String getRuid() {
-        return Ruid;
+        return ruid;
     }
 
     public void setRuid(String ruid) {
-        Ruid = ruid;
+        this.ruid = ruid;
     }
 
+    public String getGtype() {
+        return gtype;
+    }
 
+    public void setGtype(String gtype) {
+        this.gtype = gtype;
+    }
+
+    public String getGuid() {
+        return guid;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
+    }
 }

@@ -37,8 +37,8 @@ public class Gift_Sending extends AppCompatActivity implements RecyclerViewAdapt
 
     private String uid = "1";
     private String fid = "2";
-    private String fname;
-    private Long User_Rate;
+    private String fname = "";
+    private Long User_Rate = new Long(0);
     private String Friend_Photo;
     private int[] g_photo = new int[]{R.drawable.glass, R.drawable.bouquet, R.drawable.teddy_bear, R.drawable.ice_cream, R.drawable.sweater, R.drawable.gift, R.drawable.purse, R.drawable.bicycle, R.drawable.motorbiking};
     private ArrayList<String> g_type;

@@ -30,7 +30,7 @@ public class Gift_Received extends AppCompatActivity {
 
     private String uname;
     private String uid = "1";
-    private Long User_Rate;
+    private int User_Rate;
     private String User_Photo = "";
     private ArrayList<GiftInfo> gift_list = new ArrayList<GiftInfo>();
     private ArrayList<GiftInfo> gift_list_filtered = new ArrayList<GiftInfo>();
@@ -55,17 +55,21 @@ public class Gift_Received extends AppCompatActivity {
         DatabaseReference myRef1 = database.getReference("User");
 
         // Read from the database
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
-                GiftInfo  gift = dataSnapshot.getValue(GiftInfo.class);
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    GiftInfo  gift = ds.getValue(GiftInfo.class);
+                    gift_list.add(gift);
+                }
+
 //                String gUid = gift.get("GUid").toString();
 //                String gType = gift.get("Gtype").toString();
 //                String rUid = gift.get("RUid").toString();
 //                GiftInfo giftInfo = new GiftInfo(gUid,gType,rUid);
-                gift_list.add(gift);
+
 
             }
 
@@ -76,6 +80,7 @@ public class Gift_Received extends AppCompatActivity {
         });
         for (int i=0; i<gift_list.size(); i++) {
             if (gift_list.get(i).getRuid().equals(uid)) {
+
                 gift_list_filtered.add(gift_list.get(i));
             }
         }
@@ -96,14 +101,21 @@ public class Gift_Received extends AppCompatActivity {
         }
 
         //User_level
-        myRef1.addListenerForSingleValueEvent(new ValueEventListener() {
+        myRef1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Long U_Rate = dataSnapshot.child(uid).child("Rate").getValue(Long.class);
-                String U_Photo = dataSnapshot.child(uid).child("Photo").getValue(String.class);
-
-                User_Rate = U_Rate;
-                User_Photo = U_Photo;
+//                Long U_Rate = (Long)dataSnapshot.child(uid).child("Rate").getValue();
+//                String U_Photo = dataSnapshot.child(uid).child("Photo").getValue().toString();
+//
+//                User_Rate = U_Rate.intValue();
+//                User_Photo = U_Photo;
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    if (ds.getValue().toString().equals(uid)){
+                        User_Rate = ds.child("Rate").getValue(Long.class).intValue();
+                        User_Photo = ds.child("Photo").getValue(String.class);
+                    }
+                }
+                Toast.makeText(getApplication(),User_Photo,Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -122,6 +134,7 @@ public class Gift_Received extends AppCompatActivity {
         } else if (User_Rate >= 1500){
             User_Level = level[4];
         }
+        Toast.makeText(getApplication(),User_Photo,Toast.LENGTH_LONG).show();
         Uri u_photo = Uri.parse(User_Photo);
         user_photo.setImageURI(u_photo);
         user_level.setText(User_Level);
