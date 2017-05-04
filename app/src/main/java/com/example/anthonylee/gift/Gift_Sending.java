@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,18 +60,18 @@ public class Gift_Sending extends AppCompatActivity implements RecyclerViewAdapt
         Friend = (TextView)findViewById(R.id.friend);
         Send = (Button)findViewById(R.id.send);
 
-        //set up recycler view
-        rowListItem = getAllItemList();
-        lLayout = new GridLayoutManager(Gift_Sending.this, 3);
-
-        rView = (RecyclerView)findViewById(R.id.recycler_view);
-        rView.setHasFixedSize(true);
-        rView.setLayoutManager(lLayout);
-
-        rcAdapter = new RecyclerViewAdapter(Gift_Sending.this, rowListItem);
-        rView.setAdapter(rcAdapter);
-
-        rcAdapter.setItemClickCallback(this);
+//        //set up recycler view
+//        rowListItem = getAllItemList();
+//        lLayout = new GridLayoutManager(Gift_Sending.this, 3);
+//
+//        rView = (RecyclerView)findViewById(R.id.recycler_view);
+//        rView.setHasFixedSize(true);
+//        rView.setLayoutManager(lLayout);
+//
+//        rcAdapter = new RecyclerViewAdapter(Gift_Sending.this, rowListItem);
+//        rView.setAdapter(rcAdapter);
+//
+//        rcAdapter.setItemClickCallback(Gift_Sending.this);
 
 
         //function to send
@@ -85,6 +87,38 @@ public class Gift_Sending extends AppCompatActivity implements RecyclerViewAdapt
                 fname = dataSnapshot.child(fid).child("User_Name").getValue(String.class);
                 Friend_Photo = dataSnapshot.child(fid).child("Photo").getValue(String.class);
                 User_Rate = U_Rate;
+                Uri f_photo = Uri.parse(Friend_Photo);
+                Log.e("Photo url",f_photo+ "");
+                Picasso.with(getApplicationContext())
+                        .load(f_photo)
+                        .into(F_Photo);
+               // F_Photo.setImageURI(f_photo);
+                Friend.setText("你想送給"+fname+"什麼禮物呢？");
+                Send.setText("送出");
+                Send.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ArrayList<String> allGiftSent = getAllGiftSent();
+                        for (int i=0;i<allGiftSent.size();i++) {
+                            GiftInfo new_gift = new GiftInfo(uid, allGiftSent.get(i), fid);
+                            myRef.push().setValue(new_gift);
+                        }
+                    }
+                });
+                if (User_Rate != 0) {
+                    //set up recycler view
+                    rowListItem = getAllItemList();
+                    lLayout = new GridLayoutManager(Gift_Sending.this, 3);
+
+                    rView = (RecyclerView) findViewById(R.id.recycler_view);
+                    rView.setHasFixedSize(true);
+                    rView.setLayoutManager(lLayout);
+
+                    rcAdapter = new RecyclerViewAdapter(Gift_Sending.this, rowListItem);
+                    rView.setAdapter(rcAdapter);
+
+                    rcAdapter.setItemClickCallback(Gift_Sending.this);
+                }
             }
 
             @Override
@@ -93,20 +127,22 @@ public class Gift_Sending extends AppCompatActivity implements RecyclerViewAdapt
             }
         });
 
-        Uri f_photo = Uri.parse(Friend_Photo);
-        F_Photo.setImageURI(f_photo);
-        Friend.setText("你想送給"+fname+"什麼禮物呢？");
+//        Uri f_photo = Uri.parse(Friend_Photo);
+//        F_Photo.setImageURI(f_photo);
+//        Friend.setText("你想送給"+fname+"什麼禮物呢？");
+//
+//        Send.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                ArrayList<String> allGiftSent = getAllGiftSent();
+//                for (int i=0;i<allGiftSent.size();i++) {
+//                    GiftInfo new_gift = new GiftInfo(uid, allGiftSent.get(i), fid);
+//                    myRef.push().setValue(new_gift);
+//                }
+//            }
+//        });
 
-        Send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ArrayList<String> allGiftSent = getAllGiftSent();
-                for (int i=0;i<allGiftSent.size();i++) {
-                    GiftInfo new_gift = new GiftInfo(uid, allGiftSent.get(i), fid);
-                    myRef.push().setValue(new_gift);
-                }
-            }
-        });
+
 
     }
 
