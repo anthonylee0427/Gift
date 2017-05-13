@@ -33,7 +33,7 @@ public class Gift_Sending extends AppCompatActivity implements RecyclerViewAdapt
     private TextView Friend;
     private Button Send;
 
-    private List<ItemObject> rowListItem;
+    public static List<ItemObject> rowListItem;
     private RecyclerViewAdapter rcAdapter;
     private RecyclerView rView;
 
@@ -43,7 +43,7 @@ public class Gift_Sending extends AppCompatActivity implements RecyclerViewAdapt
     private Long User_Rate = new Long(0);
     private String Friend_Photo;
     private int[] g_photo = new int[]{R.drawable.glass, R.drawable.bouquet, R.drawable.teddy_bear, R.drawable.ice_cream, R.drawable.sweater, R.drawable.gift, R.drawable.purse, R.drawable.bicycle, R.drawable.motorbiking};
-    private ArrayList<String> g_type;
+    private ArrayList<String> g_type = new ArrayList<String>();
     private String[] level = new String[]{"初心者","新人","黃金","白金","鑽石"};
     private String User_Level;
 
@@ -103,6 +103,9 @@ public class Gift_Sending extends AppCompatActivity implements RecyclerViewAdapt
                             GiftInfo new_gift = new GiftInfo(uid, allGiftSent.get(i), fid);
                             myRef.push().setValue(new_gift);
                         }
+                        g_type.clear();
+
+
                     }
                 });
                 if (User_Rate != 0) {
@@ -258,18 +261,18 @@ public class Gift_Sending extends AppCompatActivity implements RecyclerViewAdapt
 
     @Override
     public void onItemClick(int p) {
-        ItemObject item = (ItemObject) rowListItem.get(p);
-
-        //update our data
-        if (item.isSent()){
-            item.setToSend(false);
-        } else {
-            item.setToSend(true);
-        }
-
-        //pass new data to adapter and update
-        rcAdapter.setListData(rowListItem);
-        rcAdapter.notifyDataSetChanged();
+    //      ItemObject item =  rowListItem.get(p);
+//
+//        //update our data
+//        if (item.isSent()){
+//            item.setToSend(false);
+//        } else {
+//            item.setToSend(true);
+//        }
+//
+//        //pass new data to adapter and update
+           rcAdapter.setListData(rowListItem);
+           rcAdapter.notifyDataSetChanged();
     }
 
     private ArrayList<String> getAllGiftSent(){

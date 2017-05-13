@@ -13,7 +13,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     private List<ItemObject> itemList;
     private Context context;
 
-    private ItemClickCallback itemClickCallback;
+    public ItemClickCallback itemClickCallback;
 
     public interface ItemClickCallback{
         void onItemClick(int p);
@@ -45,13 +45,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     public void onBindViewHolder(RecyclerViewHolders holder, int position) {
         holder.giver_name.setText(itemList.get(position).getName());
         holder.gift_view.setImageResource(itemList.get(position).getPhoto());
-        if (itemList.get(position).isSent()){
-            holder.itemView.setBackgroundResource(R.drawable.chose_style);
-        }
+//        if (itemList.get(position).isSent()){
+//            holder.itemView.setBackgroundResource(R.drawable.chose_style);
+//        }
     }
 
     @Override
     public int getItemCount() {
-        return this.itemList.size();
+        return itemList.size();
     }
+
+
 }
