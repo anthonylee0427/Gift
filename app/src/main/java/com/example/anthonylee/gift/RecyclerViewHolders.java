@@ -24,8 +24,37 @@ public class RecyclerViewHolders extends RecyclerView.ViewHolder implements View
                     Gift_Sending.rowListItem.get(getAdapterPosition()).setToSend(false);
                     itemView.setBackgroundResource(0);
                 }else {
-                    Gift_Sending.rowListItem.get(getAdapterPosition()).setToSend(true);
-                    itemView.setBackgroundResource(R.drawable.chose_style);
+                    if (Gift_Sending.rowListItem.get(getAdapterPosition()).getPhoto() == R.drawable.glass_locked){
+                        Gift_Sending.rowListItem.get(getAdapterPosition()).setToSend(false);
+                        itemView.setBackgroundResource(0);
+                    } else if (Gift_Sending.rowListItem.get(getAdapterPosition()).getPhoto() == R.drawable.bouquet_locked){
+                        Gift_Sending.rowListItem.get(getAdapterPosition()).setToSend(false);
+                        itemView.setBackgroundResource(0);
+                    } else if (Gift_Sending.rowListItem.get(getAdapterPosition()).getPhoto() == R.drawable.teddy_bear_locked){
+                        Gift_Sending.rowListItem.get(getAdapterPosition()).setToSend(false);
+                        itemView.setBackgroundResource(0);
+                    } else if (Gift_Sending.rowListItem.get(getAdapterPosition()).getPhoto() == R.drawable.ice_cream_locked){
+                        Gift_Sending.rowListItem.get(getAdapterPosition()).setToSend(false);
+                        itemView.setBackgroundResource(0);
+                    } else if (Gift_Sending.rowListItem.get(getAdapterPosition()).getPhoto() == R.drawable.sweater_locked){
+                        Gift_Sending.rowListItem.get(getAdapterPosition()).setToSend(false);
+                        itemView.setBackgroundResource(0);
+                    } else if (Gift_Sending.rowListItem.get(getAdapterPosition()).getPhoto() == R.drawable.gift_locked){
+                        Gift_Sending.rowListItem.get(getAdapterPosition()).setToSend(false);
+                        itemView.setBackgroundResource(0);
+                    } else if (Gift_Sending.rowListItem.get(getAdapterPosition()).getPhoto() == R.drawable.purse_locked){
+                        Gift_Sending.rowListItem.get(getAdapterPosition()).setToSend(false);
+                        itemView.setBackgroundResource(0);
+                    } else if (Gift_Sending.rowListItem.get(getAdapterPosition()).getPhoto() == R.drawable.bicycle_locked){
+                        Gift_Sending.rowListItem.get(getAdapterPosition()).setToSend(false);
+                        itemView.setBackgroundResource(0);
+                    } else if (Gift_Sending.rowListItem.get(getAdapterPosition()).getPhoto() == R.drawable.motorbiking_locked){
+                        Gift_Sending.rowListItem.get(getAdapterPosition()).setToSend(false);
+                        itemView.setBackgroundResource(0);
+                    } else {
+                        Gift_Sending.rowListItem.get(getAdapterPosition()).setToSend(true);
+                        itemView.setBackgroundResource(R.drawable.chose_style);
+                    }
                 }
 
             }
